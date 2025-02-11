@@ -26,7 +26,7 @@ CREATE TABLE Ubicacion (
 	Nombre_Distrito VARCHAR(100) NOT NULL,
 	Id_Ciudad INT ,
 	FOREIGN KEY (Id_Ciudad) REFERENCES CIUDAD(Id_Ciudad)
-);
+)
 
 --Creacion de la Tabla Tipo de Arma Usada para el delito 
 USE Muertes_Violentas_Ecuador;
@@ -42,9 +42,7 @@ CREATE TABLE ARMA_USADA(
 	Nombre_Arma VARCHAR(100) NOT NULL,
 	Id_Tipo INT ,
 	FOREIGN KEY (Id_Tipo) REFERENCES TIPO_ARMA(Id_Tipo)
-);
-
-
+)
 
 
 --Creacion de Tabla tipo delito 
@@ -140,7 +138,7 @@ VALUES
 	('LANZA',1),
 	('MACHETE',1),
 	('MARTILLO',2),
-	('NATURAL TÓXICA',6),
+	('NATURAL TÃ“XICA',6),
 	('NAVAJA',1),
 	('NINGUNA',5),
 	('OBJETO CONTUSO',2),
@@ -151,7 +149,7 @@ VALUES
 	('PICA HIELO',1),
 	('PISTOLA',3),
 	('PRENDA TEXTIL',4),
-	('PUÑAL',1),
+	('PUÃ‘AL',1),
 	('REPETIDORA',3),
 	('REVOLVER',3),
 	('ROCA',2),
@@ -165,7 +163,7 @@ INSERT INTO PROVINCIA(Nombre_Provincia)
 VALUES
 	('AZUAY'),
 	('BOLIVAR'),
-	('CAÑAR'),
+	('CAÃ‘AR'),
 	('CARCHI'),
 	('CHIMBORAZO'),
 	('COTOPAXI'),
@@ -209,14 +207,14 @@ VALUES
 	('BALAO',10),
 	('BALSAS',7),
 	('BALZAR',10),
-	('BAÑOS DE AGUA SANTA',24),
+	('BAÃ‘OS DE AGUA SANTA',24),
 	('BIBLIAN',3),
 	('BOLIVAR',14),
 	('BUENA FE',13),
 	('CALUMA',2),
 	('CALVAS',12),
 	('CAMILO PONCE ENRIQUEZ',1),
-	('CAÑAR',3),
+	('CAÃ‘AR',3),
 	('CARLOS JULIO AROSEMENA TOLA',16),
 	('CASCALES',23),
 	('CATAMAYO',12),
@@ -236,7 +234,7 @@ VALUES
 	('COLIMES',10),
 	('COLTA',5),
 	('COTACACHI',11),
-	('CRNEL. MARCELINO MARIDUEÑA',10),
+	('CRNEL. MARCELINO MARIDUEÃ‘A',10),
 	('CUENCA',1),
 	('CUMANDA',5),
 	('CUYABENO',23),
@@ -286,7 +284,7 @@ VALUES
 	('LAS NAVES',2),
 	('LATACUNGA',6),
 	('LIMON INDANZA',15),
-	('LOGROÑO',15),
+	('LOGROÃ‘O',15),
 	('LOJA',12),
 	('LOMAS DE SARGENTILLO',10),
 	('LORETO',17),
@@ -333,7 +331,7 @@ VALUES
 	('PICHINCHA',14),
 	('PIMAMPIRO',11),
 	('PINDAL',12),
-	('PIÑAS',7),
+	('PIÃ‘AS',7),
 	('PLAYAS',10),
 	('PORTOVELO',7),
 	('PORTOVIEJO',14),
@@ -356,7 +354,7 @@ VALUES
 	('RIOBAMBA',5),
 	('RIOVERDE',8),
 	('ROCAFUERTE',14),
-	('RUMIÑAHUI',19),
+	('RUMIÃ‘AHUI',19),
 	('SALCEDO',6),
 	('SALINAS',20),
 	('SALITRE',10),
@@ -424,12 +422,12 @@ VALUES
 	('AZOGUES',19),
 	('BABAHOYO',14),
 	('BALZAR',17),
-	('BAÑOS',18),
+	('BAÃ‘OS',18),
 	('BOLIVAR JUNIN',20),
 	('BUENA FE',211),
 	('CALDERON',161),
 	('CALVAS',69),
-	('CAÑAR',203),
+	('CAÃ‘AR',203),
 	('CATACOCHA',128),
 	('CATAMAYO',28),
 	('CAYAMBE',137),
@@ -489,7 +487,7 @@ VALUES
 	('NABON',113),
 	('NANEGAL',161),
 	('NARANJAL BALAO',115),
-	('NARANJITO MARCELINO MARIDUEÑA',45),
+	('NARANJITO MARCELINO MARIDUEÃ‘A',45),
 	('NOROCCIDENTE',138),
 	('NUEVA PROSPERINA',76),
 	('ORELLANA LORETO',119),
@@ -506,7 +504,7 @@ VALUES
 	('PEDRO CARBO',136),
 	('PICHINCHA',139),
 	('PILLARO',190),
-	('PIÑAS',16),
+	('PIÃ‘AS',16),
 	('PLAYAS',143),
 	('PONCE ENRIQUEZ',24),
 	('PORTETE',76),
@@ -521,7 +519,7 @@ VALUES
 	('RIO VERDE',163),
 	('RIOBAMBA',162),
 	('ROCAFUERTE',208),
-	('RUMIÑAHUI - MEJIA',102),
+	('RUMIÃ‘AHUI - MEJIA',102),
 	('SABANILLA',141),
 	('SALCEDO',166),
 	('SALITRE',168),
