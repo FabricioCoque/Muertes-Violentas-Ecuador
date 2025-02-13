@@ -9,7 +9,6 @@ La base de datos contiene una tabla principal llamada `muertes_violentas`, con l
 
 - `id`: Identificador único de cada registro.
 - `tipo_muerte`: Clasificación legal del caso (asesinato, homicidio, femicidio, sicariato, etc.).
-- `distrito`: Distrito policial donde ocurrió el hecho.
 - `provincia`: Provincia donde ocurrió el hecho.
 - `canton`: Cantón donde ocurrió el hecho.
 - `arma`: Tipo de arma utilizada (arma blanca, arma de fuego, etc.).
