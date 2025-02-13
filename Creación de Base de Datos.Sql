@@ -1,170 +1,154 @@
 --Creacion de Base de Datos 
-CREATE DATABASE Muertes_Violentas_Ecuador;
+CREATE DATABASE Registro_Oficial_Muertes;
 
 --Creacion de Tablas
 --Creacion de tabla Provincias en la cual sucedio el delito 
 
-USE Muertes_Violentas_Ecuador;
-CREATE TABLE PROVINCIA (
+USE Registro_Oficial_Muertes;
+CREATE TABLE Provincia (
 	Id_Provincia INT IDENTITY(1,1) PRIMARY KEY,
-	Nombre_Provincia VARCHAR (100) NOT NULL
+	Provincia VARCHAR (100) NOT NULL
 );
 	
 --Creacion de tabla Ciudad en la cual sucedio el delito 
-USE Muertes_Violentas_Ecuador;
-CREATE TABLE CIUDAD (
-	Id_Ciudad INT IDENTITY(1,1) PRIMARY KEY,
-	Nombre_Ciudad VARCHAR(100) NOT NULL,
-	Id_Provincia INT ,
-	FOREIGN KEY (Id_Provincia) REFERENCES PROVINCIA(Id_Provincia)
-)
 
---Creacion de tabla Distrito en el cual sucedio el delito
-USE Muertes_Violentas_Ecuador;
-CREATE TABLE Ubicacion (
-	Id_Ubicacion INT IDENTITY(1,1) PRIMARY KEY ,
-	Nombre_Distrito VARCHAR(100) NOT NULL,
-	Id_Ciudad INT ,
-	FOREIGN KEY (Id_Ciudad) REFERENCES CIUDAD(Id_Ciudad)
-)
+CREATE TABLE Ciudad (
+	Id_Ciudad INT IDENTITY(1,1) PRIMARY KEY,
+	Ciudad VARCHAR(100) NOT NULL,
+	Id_Provincia INT ,
+	FOREIGN KEY (Id_Provincia) REFERENCES Provincia(Id_Provincia)
+);
 
 --Creacion de la Tabla Tipo de Arma Usada para el delito 
-USE Muertes_Violentas_Ecuador;
-CREATE TABLE TIPO_ARMA (
-	Id_Tipo INT IDENTITY(1,1) PRIMARY KEY,
+
+CREATE TABLE Arma (
+	Id_Arma INT IDENTITY(1,1) PRIMARY KEY,
 	Nombre_Tipo VARCHAR(100)
 );
 
-----Creacion de la Tabla Arma Usda para el delito 
-USE Muertes_Violentas_Ecuador;
-CREATE TABLE ARMA_USADA(
-	Id_Arma INT IDENTITY (1,1) PRIMARY KEY ,
-	Nombre_Arma VARCHAR(100) NOT NULL,
-	Id_Tipo INT ,
-	FOREIGN KEY (Id_Tipo) REFERENCES TIPO_ARMA(Id_Tipo)
-)
+----Creacion de la Tabla que ofrece mas detalles sobre el arma usada 
 
+CREATE TABLE Arma_Detalle(
+	Id_Tipo INT IDENTITY (1,1) PRIMARY KEY ,
+	Tipo_Arma VARCHAR(100) NOT NULL,
+	Id_Arma INT ,
+	FOREIGN KEY (Id_Arma) REFERENCES Arma(Id_Arma)
+);
 
 --Creacion de Tabla tipo delito 
-USE Muertes_Violentas_Ecuador;
-CREATE TABLE TIPO_DELITO(
+
+CREATE TABLE Tipo_Delito(
 	Id_Delito INT IDENTITY(1,1) PRIMARY KEY ,
-	Nombre_Delito VARCHAR(100),
+	Delito VARCHAR(100)
 );
 
 --Creacion de Tabla Motivacion del Delito 
-USE Muertes_Violentas_Ecuador;
-CREATE TABLE MOTIVACION_DELITO (
+
+CREATE TABLE Presunto_Motivo (
 	Id_Motivacion INT IDENTITY(1,1) PRIMARY KEY,
-	Presunta_Motivacion VARCHAR(100) ,
+	Motivacion VARCHAR(100) 
 );
 
 --Creacmos la tabla que registra las Muertes Violentas
-USE Muertes_Violentas_Ecuador;
+
 CREATE TABLE Registro_Muertes (
 	Id_Registro INT PRIMARY KEY,
-	Id_Delito INT NOT NULL,
-	Id_Ubicacion INT NOT NULL,
-	Fecha_Delito DATE NOT NULL,
-	Id_Arma INT NOT NULL,
-	Id_Motivacion INT NOT NULL,
-	FOREIGN KEY (Id_Delito) REFERENCES TIPO_DELITO(Id_Delito),
-	FOREIGN KEY (Id_Ubicacion) REFERENCES Ubicacion (Id_Ubicacion),
-	FOREIGN KEY (Id_Arma) REFERENCES ARMA_USADA(Id_Arma),
-	FOREIGN KEY (Id_Motivacion) REFERENCES  MOTIVACION_DELITO (Id_Motivacion)
+	Fecha DATE,
+	Año INT,
+	Mes VARCHAR(100),
+	Id_Delito INT,
+	Id_Ciudad INT,
+	Id_Provincia INT,
+	Id_Arma INT,
+	Id_Motivacion INT,
+	FOREIGN KEY (Id_Delito) REFERENCES Tipo_Delito(Id_Delito),
+	FOREIGN KEY (Id_Ciudad) REFERENCES Ciudad (Id_Ciudad),
+	FOREIGN KEY (Id_Provincia) REFERENCES Provincia (Id_Provincia),
+	FOREIGN KEY (Id_Arma) REFERENCES Arma(Id_Arma),
+	FOREIGN KEY (Id_Motivacion) REFERENCES  Presunto_Motivo (Id_Motivacion)
 	);
 
----INSERTAMOS LOS DATOS EN LAS TABLAS 
-INSERT INTO TIPO_DELITO (Nombre_Delito)
+--INSERTAMOS DATOS A LAS TABLAS 
+
+INSERT INTO Arma(Nombre_Tipo)
+VALUES 
+	('ARMA DE FUEGO'),
+	('ARMA BLANCA'),
+	('ARMA CONTUNDENTE'),
+	('CONSTRICTORA'),
+	('OTROS'),
+	('SUSTANCIAS')
+
+
+INSERT INTO Arma_Detalle(Tipo_Arma,Id_Arma)
+VALUES 
+	('OTRO',1),
+	('PISTOLA',1),
+	('REVOLVER',1),
+	('OTROS ARMA CORTA',1),
+	('CORTO PUNZANTE',2),
+	('CUCHILLO',2),
+	('OBJETO CONTUSO',3),
+	('CARTUCHERA',1),
+	('SOGA',4),
+	('NINGUNA',5),
+	('SUBAMETRALLADORA',1),
+	('ESCOPETA',1),
+	('EXPLOSIVOS',5),
+	('ROCA',3),
+	('MACHETE',2),
+	('FARMACOS',6),
+	('PRENDA TEXTIL',4),
+	('PALO',3),
+	('GARROTE',3),
+	('FUNDA',5),
+	('ALCOHOL',6),
+	('LANZA',2),
+	('CARABINA',1),
+	('SIN_DATO',1),
+	('BARRA',3),
+	('CORREA',4),
+	('HIDROCARBUROS',5),
+	('CINTA DE EMBALAJE',5),
+	('DESTORNILLADOR',2),
+	('NAVAJA',2),
+	('VENENO',6),
+	('ESCOPOLAMINA',6),
+	('CABLE',4),
+	('AMETRALLADORA',1),
+	('MARTILLO',3),
+	('CUERDA',4),
+	('PUÑAL',2),
+	('FUSIL',1),
+	('NATURAL TÓXICA',6),
+	('REPETIDORA',1),
+	('AGROQUIMICO',6),
+	('TIJERAS',2),
+	('OTROS ARMA LARGA',1),
+	('DROGAS ADICTIVAS',6),
+	('PICA HIELO',2),
+	('DAGA',2),
+	('HOJA DE AFEITAR',2),
+	('CADENA',4),
+	('ELECTRICIDAD',5),
+	('BATE',3),
+	('ACIDOS',5),
+	('BISTURI',2),
+	('HACHA',2)
+
+INSERT INTO  Tipo_Delito(Delito)
 VALUES 
 	('ASESINATO'),
 	('HOMICIDIO'),
 	('SICARIATO'),
 	('FEMICIDIO')
 
-INSERT INTO MOTIVACION_DELITO (Presunta_Motivacion)
-VALUES
-	('VIOLENCIA COMUNITARIA'),
-	('DELINCUENCIA COMUN'),
-	('VIOLENCIA INTRAFAMILIAR'),
-	('TRANSNACIONAL'),
-	('SICOPATOLOGIAS'),
-	('VIOLENCIA SEXUAL'),
-	('TERRORISMO'),
-	('NO DETERMINADA')
-
-INSERT INTO TIPO_ARMA (Nombre_Tipo)
-VALUES 
-	('ARMA BLANCA'),
-	('ARMA CONTUNDENTE'),
-	('ARMA DE FUEGO'),
-	('CONSTRICTORA'),
-	('OTROS'),
-	('SUSTANCIAS')
-
-
-INSERT INTO ARMA_USADA (Nombre_Arma,Id_Tipo)
-VALUES 
-	('ACIDOS',5),
-	('AGROQUIMICO',6),
-	('ALCOHOL',6),
-	('AMETRALLADORA',3),
-	('BARRA',2),
-	('BATE',2),
-	('BISTURI',1),
-	('CABLE',4),
-	('CADENA',4),
-	('CARABINA',3),
-	('CARTUCHERA',3),
-	('CINTA DE EMBALAJE',5),
-	('CORREA',4),
-	('CORTO PUNZANTE',1),
-	('CUCHILLO',1),
-	('CUERDA',4),
-	('DAGA',1),
-	('DESTORNILLADOR',1),
-	('DROGAS ADICTIVAS',6),
-	('ELECTRICIDAD',5),
-	('ESCOPETA',3),
-	('ESCOPOLAMINA',6),
-	('EXPLOSIVOS',5),
-	('FARMACOS',6),
-	('FUNDA',5),
-	('FUSIL',3),
-	('GARROTE',2),
-	('HACHA',1),
-	('HIDROCARBUROS',5),
-	('HOJA DE AFEITAR',1),
-	('LANZA',1),
-	('MACHETE',1),
-	('MARTILLO',2),
-	('NATURAL TÓXICA',6),
-	('NAVAJA',1),
-	('NINGUNA',5),
-	('OBJETO CONTUSO',2),
-	('OTRO',1),
-	('OTROS ARMA CORTA',3),
-	('OTROS ARMA LARGA',3),
-	('PALO',2),
-	('PICA HIELO',1),
-	('PISTOLA',3),
-	('PRENDA TEXTIL',4),
-	('PUÑAL',1),
-	('REPETIDORA',3),
-	('REVOLVER',3),
-	('ROCA',2),
-	('SIN_DATO',3),
-	('SOGA',4),
-	('SUBAMETRALLADORA',3),
-	('TIJERAS',1),
-	('VENENO',6)
-
-INSERT INTO PROVINCIA(Nombre_Provincia)
+INSERT INTO Provincia(Provincia)
 VALUES
 	('AZUAY'),
 	('BOLIVAR'),
-	('CAÑAR'),
 	('CARCHI'),
+	('CAÑAR'),
 	('CHIMBORAZO'),
 	('COTOPAXI'),
 	('EL ORO'),
@@ -188,7 +172,7 @@ VALUES
 	('ZAMORA CHINCHIPE'),
 	('ZONA NO DELIMITADA')
 
-INSERT INTO CIUDAD(Nombre_Ciudad,Id_Provincia)
+INSERT INTO Ciudad(Ciudad,Id_Provincia)
 VALUES 
 	('24 DE MAYO',14),
 	('AGUARICO',17),
@@ -201,24 +185,24 @@ VALUES
 	('ARENILLAS',7),
 	('ATACAMES',8),
 	('ATAHUALPA',7),
-	('AZOGUES',3),
+	('AZOGUES',4),
 	('BABA',13),
 	('BABAHOYO',13),
 	('BALAO',10),
 	('BALSAS',7),
 	('BALZAR',10),
 	('BAÑOS DE AGUA SANTA',24),
-	('BIBLIAN',3),
+	('BIBLIAN',4),
 	('BOLIVAR',14),
 	('BUENA FE',13),
 	('CALUMA',2),
 	('CALVAS',12),
 	('CAMILO PONCE ENRIQUEZ',1),
-	('CAÑAR',3),
 	('CARLOS JULIO AROSEMENA TOLA',16),
 	('CASCALES',23),
 	('CATAMAYO',12),
 	('CAYAMBE',19),
+	('CAÑAR',4),
 	('CELICA',12),
 	('CENTINELA DEL CONDOR',25),
 	('CEVALLOS',24),
@@ -239,7 +223,7 @@ VALUES
 	('CUMANDA',5),
 	('CUYABENO',23),
 	('DAULE',10),
-	('DELEG',3),
+	('DELEG',4),
 	('DURAN',10),
 	('ECHEANDIA',2),
 	('EL CARMEN',14),
@@ -247,12 +231,12 @@ VALUES
 	('EL GUABO',7),
 	('EL PAN',1),
 	('EL PANGUI',25),
-	('EL TAMBO',3),
+	('EL TAMBO',4),
 	('EL TRIUNFO',10),
 	('ELOY ALFARO',8),
 	('EMPALME',10),
 	('ESMERALDAS',8),
-	('ESPEJO',4),
+	('ESPEJO',3),
 	('ESPINDOLA',12),
 	('FLAVIO ALFARO',14),
 	('GIRON',1),
@@ -278,7 +262,7 @@ VALUES
 	('LA JOYA DE LOS SACHAS',17),
 	('LA LIBERTAD',20),
 	('LA MANA',6),
-	('LA TRONCAL',3),
+	('LA TRONCAL',4),
 	('LAGO AGRIO',23),
 	('LAS LAJAS',7),
 	('LAS NAVES',2),
@@ -294,12 +278,12 @@ VALUES
 	('MEJIA',19),
 	('MERA',18),
 	('MILAGRO',10),
-	('MIRA',4),
+	('MIRA',3),
 	('MOCACHE',13),
 	('MOCHA',24),
 	('MONTALVO',13),
 	('MONTECRISTI',14),
-	('MONTUFAR',4),
+	('MONTUFAR',3),
 	('MORONA',15),
 	('MUISNE',8),
 	('NABON',1),
@@ -368,7 +352,7 @@ VALUES
 	('SAN MIGUEL DE LOS BANCOS',19),
 	('SAN MIGUEL DE SALCEDO',6),
 	('SAN MIGUEL DE URCUQUI',11),
-	('SAN PEDRO DE HUACA',4),
+	('SAN PEDRO DE HUACA',3),
 	('SAN PEDRO DE PELILEO',24),
 	('SAN VICENTE',14),
 	('SANTA ANA',14),
@@ -392,13 +376,13 @@ VALUES
 	('SUCRE',14),
 	('SUCUA',15),
 	('SUCUMBIOS',23),
-	('SUSCAL',3),
+	('SUSCAL',4),
 	('TAISHA',15),
 	('TENA',16),
 	('TISALEO',24),
 	('TIWINTZA',15),
 	('TOSAGUA',14),
-	('TULCAN',4),
+	('TULCAN',3),
 	('URDANETA',13),
 	('VALENCIA',13),
 	('VENTANAS',13),
@@ -409,157 +393,24 @@ VALUES
 	('ZARUMA',7),
 	('ZONA NO DELIMITADA',26)
 
-INSERT INTO Ubicacion(Nombre_Distrito,Id_Ciudad)
-VALUES 
-	('24 DE MAYO',182),
-	('9 DE OCTUBRE',76),
-	('AGUARICO',2),
-	('ALAUSI',3),
-	('AMBATO NORTE',5),
-	('AMBATO SUR',5),
-	('ARAJUNO',7),
-	('ATACAMES',112),
-	('AZOGUES',19),
-	('BABAHOYO',14),
-	('BALZAR',17),
-	('BAÑOS',18),
-	('BOLIVAR JUNIN',20),
-	('BUENA FE',211),
-	('CALDERON',161),
-	('CALVAS',69),
-	('CAÑAR',203),
-	('CATACOCHA',128),
-	('CATAMAYO',28),
-	('CAYAMBE',137),
-	('CEIBOS',76),
-	('CENTRO SUR',201),
-	('CHILLANES',36),
-	('CHINCHIPE',123),
-	('CHONE',65),
-	('CIUDAD BLANCA',178),
-	('COLTA',73),
-	('CUENCA NORTE',46),
-	('CUENCA SUR',46),
-	('DANSANTE',192),
-	('DAULE',187),
-	('DURAN',51),
-	('EL CARMEN',53),
-	('EL EMPALME',61),
-	('EL PIEDRERO',218),
-	('EL TRIUNFO BUCAY',59),
-	('EL VALLE DE QUIJOS',157),
-	('ELOY ALFARO',161),
-	('ESMERALDAS',62),
-	('ESPEJO',105),
-	('ESPINDOLA',64),
-	('ESTEROS',76),
-	('EUGENIO ESPEJO',161),
-	('FLORIDA',76),
-	('GALAPAGOS',184),
-	('GIRON',186),
-	('GUALACEO',71),
-	('GUANO',74),
-	('GUARANDA',75),
-	('HUAQUILLAS',9),
-	('JIPIJAPA',150),
-	('JUJAN SIMON BOLIVAR',198),
-	('LA CONCORDIA',85),
-	('LA DELICIA',161),
-	('LA JOYA DE LOS SACHAS',86),
-	('LA MANA',88),
-	('LA TRONCAL',89),
-	('LAGO AGRIO',90),
-	('LAS GOLONDRINAS',218),
-	('LATACUNGA',93),
-	('LIBERTAD SALINAS',167),
-	('LOJA',96),
-	('LOS CHILLOS',161),
-	('MACARA',99),
-	('MACHALA',100),
-	('MANGA DEL CURA',218),
-	('MANTA',101),
-	('MANUELA SAENZ',161),
-	('MENDEZ',189),
-	('MILAGRO',104),
-	('MODELO',76),
-	('MONTUFAR',20),
-	('MORONA',111),
-	('NABON',113),
-	('NANEGAL',161),
-	('NARANJAL BALAO',115),
-	('NARANJITO MARCELINO MARIDUEÑA',45),
-	('NOROCCIDENTE',138),
-	('NUEVA PROSPERINA',76),
-	('ORELLANA LORETO',119),
-	('PAJAN',122),
-	('PALLATANGA',126),
-	('PANGUA',129),
-	('PAQUISHA',130),
-	('PASAJE',131),
-	('PASCUALES',76),
-	('PASTAZA',132),
-	('PATATE',180),
-	('PAUTE',194),
-	('PEDERNALES',135),
-	('PEDRO CARBO',136),
-	('PICHINCHA',139),
-	('PILLARO',190),
-	('PIÑAS',16),
-	('PLAYAS',143),
-	('PONCE ENRIQUEZ',24),
-	('PORTETE',76),
-	('PORTOVIEJO',145),
-	('PROGRESO',76),
-	('PUEBLOVIEJO',210),
-	('PUTUMAYO',153),
-	('QUERO',206),
-	('QUEVEDO',156),
-	('QUININDE',159),
-	('QUITUMBE',161),
-	('RIO VERDE',163),
-	('RIOBAMBA',162),
-	('ROCAFUERTE',208),
-	('RUMIÑAHUI - MEJIA',102),
-	('SABANILLA',141),
-	('SALCEDO',166),
-	('SALITRE',168),
-	('SAMBORONDON',169),
-	('SAN LORENZO',173),
-	('SAN MIGUEL',174),
-	('SANGAY',127),
-	('SANTA ELENA',185),
-	('SANTA ROSA',188),
-	('SANTO DOMINGO ESTE',191),
-	('SANTO DOMINGO OESTE',191),
-	('SARAGURO',193),
-	('SHUSHUFINDI',195),
-	('SIG SIG',197),
-	('SIGCHOS',196),
-	('SUBTROPICO',22),
-	('SUCRE',181),
-	('SUCUMBIOS',68),
-	('SUR',76),
-	('TAISHA',204),
-	('TENA',205),
-	('TIERRA DEL SOL',44),
-	('TULCAN',209),
-	('TUMBACO',161),
-	('VALLE DEL AMANECER',120),
-	('VENTANAS',160),
-	('VINCES',213),
-	('YAGUACHI',171),
-	('YANTZAZA',57),
-	('ZAMORA',215),
-	('ZAPOTILLO',216),
-	('ZARUMA',144)
+INSERT INTO Presunto_Motivo(Motivacion)
+VALUES
+	('VIOLENCIA COMUNITARIA'),
+	('DELINCUENCIA COMUN'),
+	('VIOLENCIA INTRAFAMILIAR'),
+	('VIOLENCIA SEXUAL'),
+	('TRANSNACIONAL'),
+	('NO DETERMINADA'),
+	('SICOPATOLOGIAS'),
+	('TERRORISMO')
 
---CARGAMOS LOS  DATOS CON RESPECTO AL REGIASTRO DE LAS MUERTES 
 
+--CARGAMOS LOS DATOS DESDE UN ARCHIVO CSV A LA TABLA QUE REGISTRA TODAS LAS MUERTES DEL PERIODO 2014-2024
 BULK INSERT Registro_Muertes
-FROM 'C:\Users\HP\Documents\1.Fabricio Coque\16.Proyectos\2.SQL\Registro Homicidios Intencionales _2014_2023.csv'
+FROM 'C:\Users\HP\Documents\1.Fabricio Coque\16.Proyectos\2.SQL\Registro de Muertes Violentas\Registro_Muertes.csv'
 WITH
 (
-	FIELDTERMINATOR = ',',
+	FIELDTERMINATOR = ';',
 	ROWTERMINATOR ='\n',
 	FIRSTROW=2
 )
